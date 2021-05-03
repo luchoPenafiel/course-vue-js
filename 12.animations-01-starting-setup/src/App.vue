@@ -8,6 +8,12 @@
     <button @click="hideDialog">Close it!</button>
   </base-modal>
   <div class="container">
+    <button @click="toggleP">Toggle Paragraphs</button>
+    <transition>
+      <p v-if="showParagraphs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem sapiente delectus blanditiis, voluptate dolore officiis aliquid aliquam officia culpa sunt, molestiae ipsa debitis? Reiciendis eveniet temporibus ipsa architecto explicabo laudantium?</p>
+    </transition>
+  </div>
+  <div class="container">
     <button @click="showDialog">Show Dialog</button>
   </div>
 </template>  
@@ -15,7 +21,7 @@
 <script>
 export default {
   data() {
-    return { dialogIsVisible: false };
+    return { dialogIsVisible: false, showParagraphs: true };
   },
   methods: {
     showDialog() {
@@ -24,6 +30,9 @@ export default {
     hideDialog() {
       this.dialogIsVisible = false;
     },
+    toggleP() {
+      this.showParagraphs = !this.showParagraphs
+    }
   },
 };
 </script>
@@ -69,4 +78,34 @@ button:active {
   border: 2px solid #ccc;
   border-radius: 12px;
 }
+
+.v-enter-from {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.v-enter-active {
+  transition: all 0.25s linear;
+}
+
+.v-enter-to {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.v-leave-from {
+  opacity: 1;
+  transform: translateY(0px);
+
+}
+.v-leave-active {
+  transition: all 0.25s linear;
+
+}
+
+.v-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
 </style>

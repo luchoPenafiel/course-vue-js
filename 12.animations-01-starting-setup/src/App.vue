@@ -9,7 +9,7 @@
   </base-modal>
   <div class="container">
     <button @click="toggleP">Toggle Paragraphs</button>
-    <transition @before-enter="beforeEnter" @before-leave="beforeLeave" @enter="enter">
+    <transition @before-enter="beforeEnter" @before-leave="beforeLeave" @enter="enter" :css="false">
       <p v-if="showParagraphs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem sapiente delectus blanditiis, voluptate dolore officiis aliquid aliquam officia culpa sunt, molestiae ipsa debitis? Reiciendis eveniet temporibus ipsa architecto explicabo laudantium?</p>
     </transition>
   </div>

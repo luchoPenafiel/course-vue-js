@@ -9,7 +9,7 @@
   </base-modal>
   <div class="container">
     <button @click="toggleP">Toggle Paragraphs</button>
-    <transition @before-enter="beforeEnter" @before-leave="beforeLeave">
+    <transition @before-enter="beforeEnter" @before-leave="beforeLeave" @enter="enter">
       <p v-if="showParagraphs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem sapiente delectus blanditiis, voluptate dolore officiis aliquid aliquam officia culpa sunt, molestiae ipsa debitis? Reiciendis eveniet temporibus ipsa architecto explicabo laudantium?</p>
     </transition>
   </div>
@@ -27,6 +27,20 @@ export default {
     beforeEnter(el) {
       console.log('==> Before enter')
       console.log('==> Before enter: el', el)
+      el.style.opacity = 0;
+    },
+    enter(el, done) {
+      let round = 1
+      const interval = setInterval(() => {
+        console.log('==> Round', round);
+
+        el.style.opacity = round * 0.01;
+        round++;
+        if (round > 100) {
+          clearInterval(interval)
+          done();
+        }
+      }, 20)
     },
     beforeLeave() {
       console.log('Before leave')
@@ -86,7 +100,7 @@ button:active {
   border-radius: 12px;
 }
 
-.v-enter-from {
+/* .v-enter-from {
   opacity: 0;
   transform: translateY(-30px);
 }
@@ -112,6 +126,6 @@ button:active {
 .v-leave-to {
   opacity: 0;
   transform: translateY(-30px);
-}
+} */
 
 </style>

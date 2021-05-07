@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <user-list></user-list>
+  </div>
+  <div class="container">
     <div class="block"></div>
     <button>Animate</button>
   </div>
@@ -19,7 +22,10 @@
 </template>  
 
 <script>
+import UserList from './components/ListaData';
+
 export default {
+  components: { UserList },
   data() {
     return { dialogIsVisible: false, showParagraphs: true };
   },

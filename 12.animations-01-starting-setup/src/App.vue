@@ -9,7 +9,7 @@
   </base-modal>
   <div class="container">
     <button @click="toggleP">Toggle Paragraphs</button>
-    <transition>
+    <transition @before-enter="beforeEnter" @before-leave="beforeLeave">
       <p v-if="showParagraphs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem sapiente delectus blanditiis, voluptate dolore officiis aliquid aliquam officia culpa sunt, molestiae ipsa debitis? Reiciendis eveniet temporibus ipsa architecto explicabo laudantium?</p>
     </transition>
   </div>
@@ -24,6 +24,13 @@ export default {
     return { dialogIsVisible: false, showParagraphs: true };
   },
   methods: {
+    beforeEnter(el) {
+      console.log('==> Before enter')
+      console.log('==> Before enter: el', el)
+    },
+    beforeLeave() {
+      console.log('Before leave')
+    },
     showDialog() {
       this.dialogIsVisible = true;
     },
@@ -100,7 +107,6 @@ button:active {
 }
 .v-leave-active {
   transition: all 0.25s linear;
-
 }
 
 .v-leave-to {

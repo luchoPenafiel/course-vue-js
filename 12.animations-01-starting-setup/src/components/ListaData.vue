@@ -31,6 +31,7 @@ export default {
   ul {
     list-style: none;
     margin: 0;
+    margin-bottom: 20px;
     padding: 0;
   }
 
@@ -38,6 +39,8 @@ export default {
     padding: 20px;
     border: 1px solid gray;
     text-align: center;
+
+    background: white;
   }
 
   .user-list-enter-from {
@@ -45,11 +48,15 @@ export default {
     transform: translateX(-30px);
   }
 
-  .user-list-enter-active,
-  .user-list-leave-active {
-    transition: all 1s linear;
+  .user-list-enter-active{
+    transition: all 0.25s linear;
   }
-  
+
+  .user-list-leave-active {
+    transition: all 0.25s linear;
+    position: absolute;
+  }
+
   .user-list-enter-to,
   .user-list-leave-from {
     opacity: 1;
@@ -59,5 +66,9 @@ export default {
   .user-list-leave-to {
     opacity: 0;
     transform: translateX(30px);
+  }
+
+  .user-list-move {
+    transition: transform 0.25s linear;
   }
 </style>

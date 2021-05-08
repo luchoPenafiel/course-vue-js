@@ -1,67 +1,52 @@
 <template>
-  <div class="container">
-    <user-list></user-list>
-  </div>
-  <div class="container">
-    <div class="block"></div>
-    <button>Animate</button>
-  </div>
-  <base-modal @close="hideDialog" v-if="dialogIsVisible">
-    <p>This is a test dialog!</p>
-    <button @click="hideDialog">Close it!</button>
-  </base-modal>
-  <div class="container">
-    <button @click="toggleP">Toggle Paragraphs</button>
-    <transition @before-enter="beforeEnter" @before-leave="beforeLeave" @enter="enter" :css="false">
-      <p v-if="showParagraphs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem sapiente delectus blanditiis, voluptate dolore officiis aliquid aliquam officia culpa sunt, molestiae ipsa debitis? Reiciendis eveniet temporibus ipsa architecto explicabo laudantium?</p>
+  <router-view v-slot="slotProps">
+    <transition name="route" mode="out-in">
+      <component :is="slotProps.Component"></component>
     </transition>
-  </div>
-  <div class="container">
-    <button @click="showDialog">Show Dialog</button>
-  </div>
+  </router-view>
 </template>  
 
 <script>
-import UserList from './components/ListaData';
+// import UserList from './components/ListaData';
 
-export default {
-  components: { UserList },
-  data() {
-    return { dialogIsVisible: false, showParagraphs: true };
-  },
-  methods: {
-    beforeEnter(el) {
-      console.log('==> Before enter')
-      console.log('==> Before enter: el', el)
-      el.style.opacity = 0;
-    },
-    enter(el, done) {
-      let round = 1
-      const interval = setInterval(() => {
-        console.log('==> Round', round);
+// export default {
+//   components: { UserList },
+//   data() {
+//     return { dialogIsVisible: false, showParagraphs: true };
+//   },
+//   methods: {
+//     beforeEnter(el) {
+//       console.log('==> Before enter')
+//       console.log('==> Before enter: el', el)
+//       el.style.opacity = 0;
+//     },
+//     enter(el, done) {
+//       let round = 1
+//       const interval = setInterval(() => {
+//         console.log('==> Round', round);
 
-        el.style.opacity = round * 0.01;
-        round++;
-        if (round > 100) {
-          clearInterval(interval)
-          done();
-        }
-      }, 20)
-    },
-    beforeLeave() {
-      console.log('Before leave')
-    },
-    showDialog() {
-      this.dialogIsVisible = true;
-    },
-    hideDialog() {
-      this.dialogIsVisible = false;
-    },
-    toggleP() {
-      this.showParagraphs = !this.showParagraphs
-    }
-  },
-};
+//         el.style.opacity = round * 0.01;
+//         round++;
+//         if (round > 100) {
+//           clearInterval(interval)
+//           done();
+//         }
+//       }, 20)
+//     },
+//     beforeLeave() {
+//       console.log('Before leave')
+//     },
+//     showDialog() {
+//       this.dialogIsVisible = true;
+//     },
+//     hideDialog() {
+//       this.dialogIsVisible = false;
+//     },
+//     toggleP() {
+//       this.showParagraphs = !this.showParagraphs
+//     }
+//   },
+// };
 </script>
 
 <style>
@@ -106,32 +91,32 @@ button:active {
   border-radius: 12px;
 }
 
-/* .v-enter-from {
+.route-enter-from {
   opacity: 0;
   transform: translateY(-30px);
 }
 
-.v-enter-active {
-  transition: all 0.25s linear;
+.route-enter-active {
+  transition: all 0.5s linear;
 }
 
-.v-enter-to {
+.route-enter-to {
   opacity: 1;
   transform: translateY(0px);
 }
 
-.v-leave-from {
+.route-leave-from {
   opacity: 1;
   transform: translateY(0px);
 
 }
-.v-leave-active {
-  transition: all 0.25s linear;
+.route-leave-active {
+  transition: all 0.5s linear;
 }
 
-.v-leave-to {
+.route-leave-to {
   opacity: 0;
   transform: translateY(-30px);
-} */
+}
 
 </style>

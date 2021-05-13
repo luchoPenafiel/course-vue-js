@@ -1,5 +1,12 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
+import NotFound from '@/views/NotFound.vue';
+import CoachesList from '@/views/CoachesList.vue';
+import CoachesDetail from '@/views/CoachDetail.vue';
+import CoachesRegistration from '@/views/CoachRegistration.vue';
+import CoachContact from '@/views/CoachContact.vue';
+import Request from '@/views/Request.vue';
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -7,29 +14,29 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/coaches',
-    component: null,
+    component: CoachesList,
   },
   {
     path: '/coaches/:id',
-    component: null,
+    component: CoachesDetail,
     children: [
       {
         path: 'contact',
-        component: null,
+        component: CoachContact,
       },
     ],
   },
   {
     path: '/register',
-    component: null,
+    component: CoachesRegistration,
   },
   {
     path: '/requests',
-    component: null,
+    component: Request,
   },
   {
     path: '/:notFound(.*)',
-    component: null,
+    component: NotFound,
   },
 
   // {

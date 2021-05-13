@@ -2,10 +2,10 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 import NotFound from '@/views/NotFound.vue';
 import CoachesList from '@/views/CoachesList.vue';
-import CoachesDetail from '@/views/CoachDetail.vue';
-import CoachesRegistration from '@/views/CoachRegistration.vue';
+import CoachDetail from '@/views/CoachDetail.vue';
+import CoachRegistration from '@/views/CoachRegistration.vue';
 import CoachContact from '@/views/CoachContact.vue';
-import Request from '@/views/Request.vue';
+import Requests from '@/views/Requests.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/coaches/:id',
-    component: CoachesDetail,
+    component: CoachDetail,
     children: [
       {
         path: 'contact',
@@ -28,11 +28,11 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/register',
-    component: CoachesRegistration,
+    component: CoachRegistration,
   },
   {
     path: '/requests',
-    component: Request,
+    component: Requests,
   },
   {
     path: '/:notFound(.*)',

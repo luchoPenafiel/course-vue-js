@@ -1,3 +1,3 @@
 <template>
-  <h1>Contact Coach</h1>
+  <h1>CONTACT</h1>
 </template>

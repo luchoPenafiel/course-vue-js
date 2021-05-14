@@ -1,11 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
-import NotFound from '@/views/NotFound.vue';
 import CoachesList from '@/views/CoachesList.vue';
-import CoachDetail from '@/views/CoachDetail.vue';
-import CoachRegistration from '@/views/CoachRegistration.vue';
-import CoachContact from '@/views/CoachContact.vue';
-import Requests from '@/views/Requests.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,35 +13,26 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/coaches/:id',
-    component: CoachDetail,
+    component: () => import('@/views/CoachDetail.vue'),
     children: [
       {
         path: 'contact',
-        component: CoachContact,
+        component: () => import('@/views/CoachContact.vue'),
       },
     ],
   },
   {
     path: '/register',
-    component: CoachRegistration,
+    component: () => import('@/views/CoachRegistration.vue'),
   },
   {
     path: '/requests',
-    component: Requests,
+    component: () => import('@/views/Requests.vue'),
   },
   {
     path: '/:notFound(.*)',
-    component: NotFound,
+    component: () => import('@/views/NotFound.vue'),
   },
-
-  // {
-  // path: '/about',
-  // name: 'About',
-  // route level code-splitting
-  // this generates a separate chunk (about.[hash].js) for this route
-  // which is lazy-loaded when the route is visited.
-  // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-  // },
 ];
 
 const router = createRouter({

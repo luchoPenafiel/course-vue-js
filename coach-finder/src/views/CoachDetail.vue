@@ -50,10 +50,10 @@ export default defineComponent({
       return `${this.selectedCoach.firstName} ${this.selectedCoach.lastName}`;
     },
     rate() {
-      return this.selectedCoach.rate;
+      return this.selectedCoach.hourlyRate;
     },
     contactLink() {
-      return `${this.$route.path}/contact`;
+      return `/coaches/${this.id}/contact`;
     },
     description() {
       return this.selectedCoach.description;

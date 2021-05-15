@@ -2,7 +2,7 @@
   <section>
     <base-card>
       <h2>Register as a Coach now!</h2>
-      <registration-form></registration-form>
+      <registration-form @submit-form="submitForm"></registration-form>
     </base-card>
   </section>
 </template>
@@ -13,6 +13,14 @@ import RegistrationForm from '../components/RegistrationForm/RegistrationForm.vu
 export default {
   components: {
     RegistrationForm,
+  },
+
+  methods: {
+    submitForm(formData) {
+      console.log('formData', formData);
+      this.$store.dispatch('coaches/registerCoach', formData);
+      this.$route.replace('/coaches');
+    },
   },
 };
 </script>

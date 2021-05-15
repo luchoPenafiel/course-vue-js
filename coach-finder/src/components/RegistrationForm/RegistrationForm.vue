@@ -36,12 +36,13 @@
       </div>
     </div>
 
-    <base-button>Register</base-button>
+    <base-button v-if="isCoach">Register</base-button>
   </form>
 </template>
 
 <script>
 export default {
+  emits: ['submit-form'],
   data() {
     return {
       firstName: '',
@@ -51,17 +52,22 @@ export default {
       areas: [],
     };
   },
+  computed: {
+    isCoach() {
+      return this.$store.getters['coaches/isCoach'];
+    },
+  },
   methods: {
     submitForm() {
       const formData = {
         firstName: this.firstName,
         lastName: this.lastName,
         description: this.description,
-        rate: this.rate,
+        hourlyRate: this.rate,
         areas: this.areas,
       };
 
-      console.log('==> formData', formData);
+      this.$emit('submit-form', formData);
     },
   },
 };

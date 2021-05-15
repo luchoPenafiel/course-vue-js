@@ -37,14 +37,33 @@ export default {
       ],
     };
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    registerCoach(state: State, payload: Coach) {
+      state.coaches.push(payload);
+    },
+  },
+  actions: {
+    registerCoach(context: any, payload: Coach) {
+      const coach = {
+        ...payload,
+        id: context.rootGetters.userId,
+      };
+
+      context.commit('registerCoach', coach);
+    },
+  },
   getters: {
     coaches({ coaches }: State) {
       return coaches;
     },
     hasCoaches({ coaches }: State) {
       return coaches && coaches.length > 0;
+    },
+    isCoach(state: any, getters: any, rootState: any, rootGetters: any) {
+      const coaches = getters.coaches;
+      const userId = rootGetters.userId;
+
+      return coaches.some((coach: any) => coach.id === userId);
     },
   },
 };

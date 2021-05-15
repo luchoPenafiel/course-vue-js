@@ -16,9 +16,8 @@ export default {
   },
   methods: {
     submitForm(formData) {
-      console.log('formData', formData);
       this.$store.dispatch('coaches/registerCoach', formData);
-      this.$route.replace('/coaches');
+      this.$router.replace('/coaches');
     },
   },
 };

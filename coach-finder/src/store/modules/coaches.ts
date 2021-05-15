@@ -45,7 +45,11 @@ export default {
   actions: {
     registerCoach(context: any, payload: Coach) {
       const coach = {
-        ...payload,
+        firstName: payload.firstName,
+        lastName: payload.firstName,
+        areas: payload.areas,
+        description: payload.description,
+        hourlyRate: payload.hourlyRate,
         id: context.rootGetters.userId,
       };
 

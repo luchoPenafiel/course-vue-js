@@ -15,7 +15,7 @@
           :id="coach.id"
           :firstName="coach.firstName"
           :lastName="coach.lastName"
-          :rate="coach.rate"
+          :rate="coach.hourlyRate"
           :areas="coach.areas"
         />
       </ul>
@@ -42,6 +42,8 @@ export default {
   computed: {
     filteredCoaches() {
       const coaches = this.$store.getters['coaches/coaches'];
+
+      console.log('==>coaches', coaches);
       return coaches.filter((coach) => {
         if (this.activeFilters.frontend && coach.areas.includes('frontend')) return true;
         if (this.activeFilters.backend && coach.areas.includes('backend')) return true;

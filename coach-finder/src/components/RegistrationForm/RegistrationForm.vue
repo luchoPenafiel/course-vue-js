@@ -150,11 +150,11 @@ export default {
         return;
       } else {
         const formData = {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          description: this.description,
-          hourlyRate: this.rate,
-          areas: this.areas,
+          firstName: this.firstName.value,
+          lastName: this.lastName.value,
+          description: this.description.value,
+          hourlyRate: this.rate.value,
+          areas: this.areas.value,
         };
 
         this.$emit('submit-form', formData);

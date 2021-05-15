@@ -14,7 +14,6 @@ export default {
   components: {
     RegistrationForm,
   },
-
   methods: {
     submitForm(formData) {
       console.log('formData', formData);

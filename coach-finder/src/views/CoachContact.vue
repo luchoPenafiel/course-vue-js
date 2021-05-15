@@ -38,7 +38,7 @@ export default {
 
       this.$store.dispatch('requests/addRequest', {
         email: this.email,
-        message: this.email,
+        message: this.message,
         coachId: this.$route.params.id,
       });
 

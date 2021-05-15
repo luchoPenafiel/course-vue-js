@@ -1,3 +1,18 @@
 <template>
-  <h1>REGISTER</h1>
+  <section>
+    <base-card>
+      <h2>Register as a Coach now!</h2>
+      <registration-form></registration-form>
+    </base-card>
+  </section>
 </template>
+
+<script>
+import RegistrationForm from '../components/RegistrationForm/RegistrationForm.vue';
+
+export default {
+  components: {
+    RegistrationForm,
+  },
+};
+</script>

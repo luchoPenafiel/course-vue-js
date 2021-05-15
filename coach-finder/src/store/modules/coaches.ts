@@ -41,19 +41,55 @@ export default {
     registerCoach(state: State, payload: Coach) {
       state.coaches.push(payload);
     },
+    setCoaches(state: State, payload: Coach[]) {
+      state.coaches = payload;
+    },
   },
+
   actions: {
-    registerCoach(context: any, payload: Coach) {
+    async registerCoach(context: any, payload: Coach) {
+      const coachId = context.rootGetters.userId;
       const coach = {
         firstName: payload.firstName,
-        lastName: payload.firstName,
         areas: payload.areas,
+        lastName: payload.firstName,
         description: payload.description,
         hourlyRate: payload.hourlyRate,
-        id: context.rootGetters.userId,
       };
 
-      context.commit('registerCoach', coach);
+      const response = await fetch(`https://vue-course-de7fa-default-rtdb.firebaseio.com/coaches/${coachId}.json`, {
+        method: 'PUT',
+        body: JSON.stringify(coach),
+      });
+
+      // const responseData = await response.json();
+
+      if (!response.ok) {
+        // TODO: handle error
+      }
+
+      context.commit('registerCoach', { ...coach, id: coachId });
+    },
+    async loadCoaches(context: any) {
+      const response = await fetch('https://vue-course-de7fa-default-rtdb.firebaseio.com/coaches.json');
+      const data = await response.json();
+
+      const coaches = [];
+
+      for (const key in data) {
+        const coach = {
+          id: key,
+          firstName: data[key].firstName,
+          areas: data[key].areas,
+          lastName: data[key].firstName,
+          description: data[key].description,
+          hourlyRate: data[key].hourlyRate,
+        };
+
+        coaches.push(coach);
+      }
+
+      context.commit('setCoaches', coaches);
     },
   },
   getters: {

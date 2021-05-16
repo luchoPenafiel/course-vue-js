@@ -52,7 +52,7 @@ export default {
       const coach = {
         firstName: payload.firstName,
         areas: payload.areas,
-        lastName: payload.firstName,
+        lastName: payload.lastName,
         description: payload.description,
         hourlyRate: payload.hourlyRate,
       };
@@ -81,7 +81,7 @@ export default {
           id: key,
           firstName: data[key].firstName,
           areas: data[key].areas,
-          lastName: data[key].firstName,
+          lastName: data[key].lastName,
           description: data[key].description,
           hourlyRate: data[key].hourlyRate,
         };

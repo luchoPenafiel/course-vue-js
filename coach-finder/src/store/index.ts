@@ -12,7 +12,7 @@ const store = createStore({
   },
   state() {
     return {
-      userId: 'c1241',
+      userId: 'c1',
     };
   },
   getters: {

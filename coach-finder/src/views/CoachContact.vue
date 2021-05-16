@@ -42,8 +42,6 @@ export default {
         coachId: this.$route.params.id,
       });
 
-      console.log('===> ', this.$router);
-
       this.$router.replace('/');
     },
   },

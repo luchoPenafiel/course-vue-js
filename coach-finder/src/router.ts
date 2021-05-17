@@ -31,6 +31,10 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/Requests.vue'),
   },
   {
+    path: '/login',
+    component: () => import('@/views/UserAuth.vue'),
+  },
+  {
     path: '/:notFound(.*)',
     component: () => import('@/views/NotFound.vue'),
   },

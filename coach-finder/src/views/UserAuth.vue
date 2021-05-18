@@ -49,13 +49,20 @@ export default {
     submitForm() {
       this.formIsValid = true;
 
-      if (this.email === '' || !this.password.length < 6) {
+      if (this.email === '' || this.password.length < 6) {
         this.formIsValid = false;
 
         return;
       }
 
-      // TODO: send http request
+      if (this.mode === 'login') {
+        // TODO: send http request
+      } else {
+        this.$store.dispatch('signUp', {
+          email: this.email,
+          password: this.password,
+        });
+      }
     },
     switchAuthMode() {
       if (this.mode === 'login') {

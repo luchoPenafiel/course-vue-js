@@ -45,7 +45,6 @@ export default {
       state.coaches = payload;
     },
   },
-
   actions: {
     async registerCoach(context: any, payload: Coach) {
       const coachId = context.rootGetters.userId;

@@ -1,4 +1,5 @@
 <template>
+  <base-spinner v-if="isLoading"></base-spinner>
   <base-card>
     <form @submit.prevent="submitForm">
       <div class="form-control">
@@ -16,6 +17,7 @@
       <base-button>{{ submitButtonCaption }}</base-button>
       <base-button type="button" mode="flat" @click="switchAuthMode">{{ submitWitchCaption }} instead</base-button>
     </form>
+    <p v-if="!!error">{{ error }}</p>
   </base-card>
 </template>
 
@@ -27,6 +29,8 @@ export default {
       password: '',
       formIsValid: true,
       mode: 'login',
+      isLoading: false,
+      error: null,
     };
   },
   computed: {
@@ -46,7 +50,7 @@ export default {
     },
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       this.formIsValid = true;
 
       if (this.email === '' || this.password.length < 6) {
@@ -55,14 +59,22 @@ export default {
         return;
       }
 
-      if (this.mode === 'login') {
-        // TODO: send http request
-      } else {
-        this.$store.dispatch('signUp', {
-          email: this.email,
-          password: this.password,
-        });
+      this.isLoading = true;
+
+      try {
+        if (this.mode === 'login') {
+          // TODO: send http request
+        } else {
+          await this.$store.dispatch('signUp', {
+            email: this.email,
+            password: this.password,
+          });
+        }
+      } catch (err) {
+        this.error = err.message || 'Faild to login, try later.';
       }
+
+      this.isLoading = false;
     },
     switchAuthMode() {
       if (this.mode === 'login') {

@@ -63,18 +63,25 @@ export default {
 
       try {
         if (this.mode === 'login') {
-          // TODO: send http request
+          await this.$store.dispatch('login', {
+            email: this.email,
+            password: this.password,
+          });
+          console.log('Login OK');
+          this.$router.replace('/');
         } else {
           await this.$store.dispatch('signUp', {
             email: this.email,
             password: this.password,
           });
+          console.log('Sign up OK');
+          this.$router.replace('/');
         }
       } catch (err) {
         this.error = err.message || 'Faild to login, try later.';
+      } finally {
+        this.isLoading = false;
       }
-
-      this.isLoading = false;
     },
     switchAuthMode() {
       if (this.mode === 'login') {

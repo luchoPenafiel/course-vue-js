@@ -73,5 +73,8 @@ export default {
     token(state: any): string {
       return state.token;
     },
+    isAuth(state: any): boolean {
+      return !!state.token;
+    },
   },
 };

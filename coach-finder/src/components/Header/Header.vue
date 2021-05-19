@@ -8,13 +8,26 @@
         <li>
           <router-link to="/coaches">All coaches</router-link>
         </li>
-        <li>
+        <li v-if="isAuth">
           <router-link to="/requests">Requests</router-link>
+        </li>
+        <li v-else>
+          <router-link to="/login">Login</router-link>
         </li>
       </ul>
     </nav>
   </header>
 </template>
+
+<script>
+export default {
+  computed: {
+    isAuth() {
+      return this.$store.getters.isAuth;
+    },
+  },
+};
+</script>
 
 <style scoped>
 header {

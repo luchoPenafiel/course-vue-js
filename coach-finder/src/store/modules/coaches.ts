@@ -56,10 +56,15 @@ export default {
         hourlyRate: payload.hourlyRate,
       };
 
-      const response = await fetch(`https://vue-course-de7fa-default-rtdb.firebaseio.com/coaches/${coachId}.json`, {
-        method: 'PUT',
-        body: JSON.stringify(coach),
-      });
+      const token = context.rootGetters.token;
+
+      const response = await fetch(
+        `https://vue-course-de7fa-default-rtdb.firebaseio.com/coaches/${coachId}.json?auth=${token}`,
+        {
+          method: 'PUT',
+          body: JSON.stringify(coach),
+        },
+      );
 
       // const responseData = await response.json();
 

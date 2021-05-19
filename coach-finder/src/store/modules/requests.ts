@@ -36,8 +36,11 @@ export default {
     },
     async loadRquests(context: any) {
       const userId = context.rootGetters.userId;
+      const token = context.rootGetters.token;
 
-      const response = await fetch(`https://vue-course-de7fa-default-rtdb.firebaseio.com/requests/${userId}.json`);
+      const response = await fetch(
+        `https://vue-course-de7fa-default-rtdb.firebaseio.com/requests/${userId}.json?auth=${token}`,
+      );
       const responseData = await response.json();
 
       const requests = [];

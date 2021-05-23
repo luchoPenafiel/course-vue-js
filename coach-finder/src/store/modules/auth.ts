@@ -17,33 +17,28 @@ export default {
   },
   actions: {
     async login(context: any, payload: any) {
-      const response: any = await fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,
-        {
-          method: 'POST',
-          body: JSON.stringify({
-            email: payload.email,
-            password: payload.password,
-            returnSecureToken: true,
-          }),
-        },
-      );
-
-      const responseData = await response.json();
-
-      if (!response.ok) {
-        console.error(response);
-        throw new Error(response.message || 'Problemas en el login');
-      }
-
-      context.commit('setUser', {
-        token: responseData.idToken,
-        userId: responseData.localId,
-        tokenExpiration: responseData.expiresIn,
+      return context.dispatch('auth', {
+        ...payload,
+        mode: 'login',
       });
     },
     async signUp(context: any, payload: any) {
-      const response: any = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`, {
+      return context.dispatch('auth', {
+        ...payload,
+        mode: 'signUp',
+      });
+    },
+    logout(context: any) {
+      context.commit('setUser', {
+        userId: null,
+        token: null,
+        tokenExpiration: null,
+      });
+    },
+    async auth(context: any, payload: any) {
+      const mode = payload.mode === 'login' ? 'signInWithPassword' : 'signUp';
+
+      const response: any = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:${mode}?key=${API_KEY}`, {
         method: 'POST',
         body: JSON.stringify({
           email: payload.email,
@@ -56,8 +51,11 @@ export default {
 
       if (!response.ok) {
         console.error(response);
-        throw new Error(response.message || 'Problemas en el sing up');
+        throw new Error(response.message || `Problemas en el ${mode}`);
       }
+
+      localStorage.setItem('token', responseData.idToken);
+      localStorage.setItem('userId', responseData.localId);
 
       context.commit('setUser', {
         token: responseData.idToken,
@@ -65,12 +63,17 @@ export default {
         tokenExpiration: responseData.expiresIn,
       });
     },
-    logout(context: any) {
-      context.commit('setUser', {
-        userId: null,
-        token: null,
-        tokenExpiration: null,
-      });
+    autoLogin(context: any) {
+      const token = localStorage.getItem('token');
+      const userId = localStorage.getItem('userId');
+
+      if (token && userId) {
+        context.commit('setUser', {
+          token,
+          userId,
+          tokenExpiration: null,
+        });
+      }
     },
   },
   getters: {

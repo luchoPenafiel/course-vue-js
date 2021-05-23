@@ -3,11 +3,14 @@
   <router-view />
 </template>
 
-<script lang="ts">
+<script>
 import TheHeader from './components/Header/Header.vue';
 
 export default {
   components: { TheHeader },
+  created() {
+    this.$store.dispatch('autoLogin');
+  },
 };
 </script>
 
